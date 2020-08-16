@@ -9,6 +9,17 @@ using namespace std;
 
 // Implement these and other Game member functions you may have added.
 
+void ShowConsoleCursor(bool showFlag)				//this fxn makes the blinking command line terminal cursor disappear
+{
+	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	CONSOLE_CURSOR_INFO     cursorInfo;
+
+	GetConsoleCursorInfo(out, &cursorInfo);
+	cursorInfo.bVisible = showFlag; // set the cursor visibility
+	SetConsoleCursorInfo(out, &cursorInfo);
+}
+
 Game::Game(int goblinSmellDistance)
 {}
 Game::Game()
@@ -26,8 +37,9 @@ void Game::gotoxy(int x, int y)		//goes to a particular x,y coordinate on the co
 void Game::play()
 {
 	
-	
+	ShowConsoleCursor(false);					//turn off the blinking cmd line cursor
 	cout << "Press q to exit game." << endl;
+	system("pause");							//so the above cout will display before the dungeon fills the screen
 
 	Grid dungeon;
 	Player player;
