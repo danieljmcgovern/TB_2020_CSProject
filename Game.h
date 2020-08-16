@@ -8,8 +8,12 @@
 class Game
 {
 public:
+	Game();
 	Game(int goblinSmellDistance);
 	void play();
+	void gotoxy(int, int);
+
+
 private:
 };
 
