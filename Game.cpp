@@ -15,6 +15,7 @@ void Game::play()
 	cout << "Press q to exit game." << endl;
 	while (getCharacter() != 'q')
 		;
+	//test commit 8/16/20 2:04PM
 }
 
 // You will presumably add to this project other .h/.cpp files for the
