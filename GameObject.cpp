@@ -29,10 +29,12 @@ void Player::movePlayer(char direction)
 {
 	if (direction == ARROW_UP)
 		if (getGrid(x_pos, y_pos - 1) != '#') {	//check the space player is trying to move to for a wall
+			//TODO what if... can the player leave something behind ? (i.e. is setting the old pos to ' ' (blank) not a good idea?)
+			//line below is problematic: what if there was a weapon the player chose not to pick up? this line makes it disappear...
 			setGrid(x_pos, y_pos, ' ');			//delete the player from old grid space
 			y_pos--;						//ARROW_UP means move "up" y one position (which is acutally in the negative y direction)
 			setGrid(x_pos, y_pos, '@');			//move the player to the new grid space			
-		}	//TODO what if... can the player leave something behind ? (i.e. is setting the old pos to ' ' (blank) not a good idea?)
+		}	
 	if (direction == ARROW_DOWN)
 		if (getGrid(x_pos, y_pos + 1) != '#') {	
 			setGrid(x_pos, y_pos, ' ');			
@@ -81,7 +83,7 @@ void Grid::drawDungeon()
 		setGrid(0, i, '#');
 		setGrid(69, i, '#');
 	}
-	for (int i = 1; i < 17; i++) {		//prints random length "middle" segments of dungeon wall
+	for (int i = 1; i < 16; i++) {		//prints random length "middle" segments of dungeon wall
 		int width = 1;						//for loop will printing at width, end at width_plus
 		int width_plus = 0;
 		while (width_plus < 69) {
