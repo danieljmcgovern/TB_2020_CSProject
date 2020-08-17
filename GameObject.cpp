@@ -4,25 +4,10 @@
 #include <iostream>
 using namespace std;
 
+//////////////////////////PLAYER class////////////////////////////
 Player::Player()
 {
-	initializePlayer('@');
-}
-
-void Player::initializePlayer(char icon)	//argument is player icon ('@' per game rules)
-{
-	int random_x, random_y;	
-	bool found = false;		//if stmt will set to true when it has "found" a location to place player
-	while(!found) {
-		random_x = rand() % 69 + 1;		//random number between 1 and 69 (0 and 70 already taken up by the walls of the dungeon)
-		random_y = rand() % 16 + 1;
-		if (getGrid(random_x, random_y) != '#') {	//if the random location is not a wall of the dungeon TODO check for goblins?
-			x_pos = random_x;
-			y_pos = random_y;
-			setGrid(x_pos, y_pos, '@');		//set the position of the player in the grid and print the player icon at that location on the grid														
-			found = true;							//exit the while loop
-		}			
-	}
+	initializeObject('@');
 }
 
 void Player::movePlayer(char direction)
@@ -55,10 +40,27 @@ void Player::movePlayer(char direction)
 		}
 }
 
+//////////////////////////////GRID class//////////////////////////////
 Grid::Grid()
 {
 	system("cls");		//otherwise some #'s are left printed from the last time it ran, and the @ goes right thru them
 	drawDungeon();
+}
+
+void Grid::initializeObject(char icon)	//argument is object icon ('@' for palyer, 'G' for goblin per game rules)
+{
+	int random_x, random_y;
+	bool found = false;		//if stmt will set to true when it has "found" a location to place object
+	while (!found) {
+		random_x = rand() % 69 + 1;		//random number between 1 and 69 (0 and 70 already taken up by the walls of the dungeon)
+		random_y = rand() % 16 + 1;
+		if (getGrid(random_x, random_y) != '#') {	//if the random location is not a wall of the dungeon TODO check for other objects?
+			x_pos = random_x;
+			y_pos = random_y;
+			setGrid(x_pos, y_pos, icon);		//set the position of the object in the grid and print the object's icon at that location on the grid														
+			found = true;							//exit the while loop
+		}
+	}
 }
 
 void Grid::setGrid(int x, int y, char c)		//sets grid array and prints corresponding char at that position on the grid
