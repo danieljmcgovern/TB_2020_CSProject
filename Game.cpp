@@ -41,16 +41,23 @@ void Game::play()
 	cout << "Press q to exit game." << endl;
 	system("pause");							//so the above cout will display before the dungeon fills the screen
 
-	Grid dungeon;
-	Player player;
+	Grid *dungeon = new Grid;
+	
+	Player* player = new Player(dungeon);
+	Goblin* goblin = new Goblin(dungeon);
+	
+	
 
 	while (1)		//moved getCharacter() != q out of while condition to fix bug (double tapping arrow key to move)
 	{		
 		char key_stroke = getCharacter();
 		if (key_stroke == 'q') return;		
-		if (key_stroke == ARROW_UP || key_stroke == ARROW_DOWN || key_stroke == ARROW_LEFT || key_stroke == ARROW_RIGHT)
-			player.movePlayer(key_stroke);
-
+		if (key_stroke == ARROW_UP || key_stroke == ARROW_DOWN || key_stroke == ARROW_LEFT || key_stroke == ARROW_RIGHT) {
+			player->movePlayer(key_stroke, dungeon);
+			goblin->moveGoblin(dungeon);
+		}
+			
+		
 	}
 		
 
