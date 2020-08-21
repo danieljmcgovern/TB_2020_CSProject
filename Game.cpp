@@ -52,8 +52,8 @@ void Game::play()
 		char key_stroke = getCharacter();
 		if (key_stroke == 'q') return;		
 		if (key_stroke == ARROW_UP || key_stroke == ARROW_DOWN || key_stroke == ARROW_LEFT || key_stroke == ARROW_RIGHT) {
-			player->movePlayer(key_stroke, dungeon);
-			goblin->moveGoblin(dungeon);
+			player->movePlayer(key_stroke, dungeon, goblin);
+			goblin->moveGoblin(dungeon, player);
 		}	
 	}
 

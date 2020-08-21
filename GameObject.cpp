@@ -24,6 +24,11 @@ void Character::initializeCharacter(Grid* g)
 	}
 }
 
+void Character::doBattle(Character* combatant1, Character* combatant2)
+{
+	cout << "Battle!";
+}
+
 
 //////////////////////////PLAYER class////////////////////////////
 Player::Player(Grid* g)
@@ -32,33 +37,39 @@ Player::Player(Grid* g)
 	initializeCharacter(g);
 }
 
-void Player::movePlayer(char direction, Grid * g)
+void Player::movePlayer(char direction, Grid * g, Character * goblin)
 {
 	if (direction == ARROW_UP)
 		if (g->getGrid(x_pos, y_pos - 1) != '#') {	//check the space player is trying to move to for a wall
+			if (g->getGrid(x_pos, y_pos - 1) == 'G')	doBattle(this, goblin);
+
 			//TODO what if... can the player leave something behind ? (i.e. is setting the old pos to ' ' (blank) not a good idea?)
 			//line below is problematic: what if there was a weapon the player chose not to pick up? this line makes it disappear...
+					//probably some if statemnet will catch that before getting here... maybe
 			g->setGrid(x_pos, y_pos, ' ');			//delete the player from old grid space
 			y_pos--;						//ARROW_UP means move "up" y one position (which is acutally in the negative y direction)
-			g->setGrid(x_pos, y_pos, '@');			//move the player to the new grid space			
+			g->setGrid(x_pos, y_pos, icon);			//move the player to the new grid space			
 		}	
 	if (direction == ARROW_DOWN)
 		if (g->getGrid(x_pos, y_pos + 1) != '#') {
+			if (g->getGrid(x_pos, y_pos + 1) == 'G')	doBattle(this, goblin);
 			g->setGrid(x_pos, y_pos, ' ');
 			y_pos++;						
-			g->setGrid(x_pos, y_pos, '@');
+			g->setGrid(x_pos, y_pos, icon);
 		}
 	if (direction == ARROW_LEFT)
 		if (g->getGrid(x_pos - 1, y_pos) != '#') {
+			if (g->getGrid(x_pos - 1, y_pos) == 'G')	doBattle(this, goblin);
 			g->setGrid(x_pos, y_pos, ' ');
 			x_pos--;
-			g->setGrid(x_pos, y_pos, '@');
+			g->setGrid(x_pos, y_pos, icon);
 		}
 	if (direction == ARROW_RIGHT)
 		if (g->getGrid(x_pos + 1, y_pos) != '#') {
+			if (g->getGrid(x_pos + 1, y_pos) == 'G')	doBattle(this, goblin);
 			g->setGrid(x_pos, y_pos, ' ');
 			x_pos++;
-			g->setGrid(x_pos, y_pos, '@');
+			g->setGrid(x_pos, y_pos, icon);
 		}
 }
 
@@ -69,11 +80,12 @@ Goblin::Goblin(Grid * g)
 	initializeCharacter(g);
 }
 
-void Goblin::moveGoblin(Grid* g)
+void Goblin::moveGoblin(Grid* g, Character * player)
 {
 	int random = rand() % 4 + 1;
 	if (random == 1) {
 		if (g->getGrid(x_pos, y_pos - 1) != '#') {
+			if (g->getGrid(x_pos, y_pos - 1) == '@')	doBattle(this, player);
 			g->setGrid(x_pos, y_pos, ' ');
 			y_pos--;
 			g->setGrid(x_pos, y_pos, icon);
@@ -81,6 +93,7 @@ void Goblin::moveGoblin(Grid* g)
 	}
 	if (random == 2) {
 		if (g->getGrid(x_pos, y_pos + 1) != '#') {
+			if (g->getGrid(x_pos, y_pos + 1) == '@')	doBattle(this, player);
 			g->setGrid(x_pos, y_pos, ' ');
 			y_pos++;
 			g->setGrid(x_pos, y_pos, icon);
@@ -88,6 +101,7 @@ void Goblin::moveGoblin(Grid* g)
 	}
 	if (random == 3) {
 		if (g->getGrid(x_pos - 1, y_pos) != '#') {
+			if (g->getGrid(x_pos - 1, y_pos) == '@')	doBattle(this, player);
 			g->setGrid(x_pos, y_pos, ' ');
 			x_pos--;
 			g->setGrid(x_pos, y_pos, icon);
@@ -95,6 +109,7 @@ void Goblin::moveGoblin(Grid* g)
 	}
 	if (random == 4) {
 		if (g->getGrid(x_pos + 1, y_pos) != '#') {
+			if (g->getGrid(x_pos + 1, y_pos) == '@')	doBattle(this, player);
 			g->setGrid(x_pos, y_pos, ' ');
 			x_pos++;
 			g->setGrid(x_pos, y_pos, icon);
