@@ -7,6 +7,7 @@ class Grid : public Game
 {
 public:
 	Grid();	
+	void initializeGrid();			//initialized grid to null values
 	void drawDungeon();				//constructs the walls of the dungeon on the grid (randomized)	
 	char getGrid(int, int);			//return the character (char) associated with the position passed in
 	void setGrid(int, int, char);	//x position, y position, character (char) in that x,y position	

@@ -44,8 +44,7 @@ void Game::play()
 	Grid *dungeon = new Grid;
 	
 	Player* player = new Player(dungeon);
-	Goblin* goblin = new Goblin(dungeon);
-	
+	Goblin* goblin = new Goblin(dungeon);	
 	
 
 	while (1)		//moved getCharacter() != q out of while condition to fix bug (double tapping arrow key to move)
@@ -55,11 +54,11 @@ void Game::play()
 		if (key_stroke == ARROW_UP || key_stroke == ARROW_DOWN || key_stroke == ARROW_LEFT || key_stroke == ARROW_RIGHT) {
 			player->movePlayer(key_stroke, dungeon);
 			goblin->moveGoblin(dungeon);
-		}
-			
-		
+		}	
 	}
-		
+
+	//is this necessary?
+	delete dungeon, player, goblin;
 
 		
 }

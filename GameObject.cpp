@@ -1,7 +1,6 @@
 #include "Game.h"
 #include "GameObject.h"
 #include "utilities.h"
-#include "Windows.h"
 #include <iostream>
 using namespace std;
 
@@ -16,7 +15,7 @@ void Character::initializeCharacter(Grid* g)
 	while (!found) {
 		random_x = rand() % 69 + 1;		//random number between 1 and 69 (0 and 70 already taken up by the walls of the dungeon)
 		random_y = rand() % 16 + 1;
-		if (g->getGrid(random_x, random_y) != '#') {	//if the random location is not a wall of the dungeon TODO check for other objects?
+		if (g->getGrid(random_x, random_y) == 0) {	//if the random location is empty
 			x_pos = random_x;
 			y_pos = random_y;
 			g->setGrid(x_pos, y_pos, icon);		//set the position of the object in the grid and print the object's icon at that location on the grid														
@@ -107,8 +106,16 @@ void Goblin::moveGoblin(Grid* g)
 //////////////////////////////GRID class//////////////////////////////
 Grid::Grid()
 {
-	system("cls");		//otherwise some '#'s are left printed from the last time it ran, and the @ goes right thru them
+	system("cls");		//otherwise some '#'s are left printed from the last time it ran, and the @ goes right thru them	
+	initializeGrid();
 	drawDungeon();
+}
+
+void Grid::initializeGrid()
+{
+	for (int i = 0; i < 70; i++)
+		for (int j = 0; j < 18; j++)
+			grid[i][j] = 0;
 }
 
 
